@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	
+	<package name="clothes" extends="struts-default">
+		<!-- test valid code -->
+		<action name="newlogin" class="testAction" method="testValid">
+			<result name="testValid">/pages/inputImage.jsp</result>
+		</action>
+		<!-- test valid code -->
+		<action name="reg_test" class="testAction" method="main">
+			<result name="register">/pages/member/register.jsp</result>
+		</action>
+		<action name="admin_register" class="testAction" method="adminregister">
+			<result name="adminregister">/pages/admin/adminregister.jsp</result>
+		</action>
+	
+		<action name="back_index" class="testAction" method="back">
+			<result name="index">/pages/index.jsp</result>
+		</action>
+		<!-- login forget -->
+		<action name="user_loginPage" class="userAction" method="loginPage">
+			<result name="login">/pages/index.jsp</result>
+		</action>
+		<action name="user_reset" class="userAction" method="resetPage">
+			<result name="resetPwd">/pages/member/reset_password.jsp</result>
+		</action>
+		<action name="user_resetPwd" class="userAction" method="resetPwd">
+			<result name="invalid.token">/pages/member/reset_password.jsp</result>
+			<result name="resetPwd">/pages/member/reset_password.jsp</result>
+			<result name="login">/pages/index.jsp</result>
+		</action>
+		<!-- login choice -->
+<!-- 		<result name="mainFrame">/pages/mainFrame.jsp</result>
+		<result name="adminLogin">/pages/admin/adminlogin.jsp</result> -->
+		<action name="login" class="testAction" method="login">
+			<result name="success">/pages/index.jsp</result>
+			<result name="shop">/pages/usermainFrame.jsp</result>
+			<result name="adminLogin">/pages/mainFrame.jsp</result>
+			<result name="error">/pages/index.jsp</result>
+		</action>
+		<action name="login_Shop" class="testAction" method="loginShop">
+			<result name="shop">/pages/shop/shop.jsp</result>
+		</action>
+		<action name="login_Page" class="testAction" method="loginPage">
+			<result name="LoginPage">/pages/index.jsp</result>
+		</action>
+		<action name="loginadmin_Page" class="testAction" method="loginadminPage">
+			<result name="LoginadminPage">/pages/admin/adminlogin.jsp</result>
+		</action>
+		<!-- user validate -->
+		<action name="user_validate" class="testAction" method="validateEmail">
+			<result name="validate">/pages/member/validate_uccess.jsp</result>
+		</action>
+		<!-- register choice -->		
+		<action name="register" class="testAction" method="registerSave">
+			<result name="success">/pages/member/registersuccess.jsp</result>		
+			<result name="error">/pages/member/registererror.jsp</result>
+		</action>
+		<action name="back_register" class="testAction" method="login">
+		<result name="success">/pages/index.jsp</result>
+		</action>
+		<action name="backadmin_register" class="testAction" method="backadminregister">
+		<result name="backadminregister">/pages/admin/adminlogin.jsp</result>
+		</action>
+		<action name="adminMember_search" class="testAction" method="adminMembersearch">
+		<result name="adminMembersearch">/pages/admin/adminMembersearch.jsp</result>
+		</action>
+		<action name="Member_search" class="testAction" method="shop">
+		<result name="Membersearch">/pages/member/Membersearch.jsp</result>
+		</action>
+		<action name="Member_datachange" class="testAction" method="changeData">
+			<result name="data">/pages/member/Membermodification.jsp</result>
+		</action>		
+		<action name="Member_modification" class="testAction" method="modify">
+			<result name="Membermodification">/pages/admin/adminMember.jsp</result>
+		</action>
+		
+		<action name="Member_passwordchange" class="testAction" method="changePwd">
+			<result name="change">/pages/member/Memberpasswordcheck.jsp</result>
+		</action>
+		
+		<action name="Member_passwordcheck" class="testAction" method="modifyPwd">
+			<result name="Membermodification">/pages/index.jsp</result>
+			<result name="Memberpasswordcheck">/pages/member/Memberpasswordcheck.jsp</result>
+		</action>
+        <!-- Category Product -->
+        <action name="Member_jacketchange" class="categoryAction" method="changejacket">
+		<result name="change">/pages/Category/Categoryjacket.jsp</result>
+		</action>
+		
+        <action name="Category_jacket" class="categoryAction" method="jumpjacket">
+		<result name="Categoryjacket">/pages/Category/Categoryjacket.jsp</result>
+		</action>
+        
+        
+        <!-- Product -->
+        <action name="Product_jacket" class="productAction" method="productList">
+        	<result name="Productjacket">/pages/Category/Categoryjacket.jsp</result>
+        </action>
+        <action name="Check_category" class="categoryAction" method="checkList">
+        	<result name="Checkcategory">/pages/admin/adminlogin.jsp</result>
+        </action>
+        
+        
+        <!-- shopedit -->		
+		<action name="shop_edit" class="categoryAction" method="jumpshopedit">
+			<result name="shopedit">/pages/shop/shopedit.jsp</result>
+		</action>	 
+		<action name="product_save" class="productAction" method="productSave">
+			<result name="success">/pages/admin/adminProduct.jsp</result>
+		</action>
+		<!-- 判斷是否為管理者 -->
+		<action name="admin_login" class="testAction" method="adminLogin">
+			<result name="success">/pages/admin/adminlogin.jsp</result>
+		</action>
+		<!-- adminCategory -->
+		<action name="admin_Category" class="categoryAction" method="jumpCategory">
+			<result name="adminCategory">/pages/admin/adminCategory.jsp</result>
+		</action>
+		<action name="save_Category" class="categoryAction" method="saveCategory">
+			<result name="Checkcategory">/pages/admin/adminlogin.jsp</result>
+		</action>
+		<action name="change_edit" class="categoryAction" method="jumpedit">
+			<result name="changeedit">/pages/admin/adminedit.jsp</result>
+		</action>
+		<action name="category_edit" class="categoryAction" method="modifyCategory">
+			<result name="categoryedit">/pages/admin/adminlogin.jsp</result>
+		</action>
+		<action name="change_delete" class="categoryAction" method="jumpdelete">
+			<result name="changedelete">/pages/admin/adminlogin.jsp</result>
+		</action>
+		<action name="category_delete" class="categoryAction" method="deleteCategory">
+			<result name="categorydelete">/pages/admin/adminlogin.jsp</result>
+		<!-- adminProduct -->
+		</action>
+		<action name="changeproduct_edit" class="productAction" method="jumpproductedit">
+			<result name="changeproductedit">/pages/admin/adminProductedit.jsp</result>
+		</action>
+		<action name="product_edit" class="productAction" method="modifyProduct">
+			<result name="productedit">/pages/admin/adminProduct.jsp</result>
+		</action>
+		<action name="changeproduct_delete" class="productAction" method="jumpproductdelete">
+			<result name="changeproductdelete">/pages/admin/adminProduct.jsp</result>
+		</action>
+		<action name="product_delete" class="productAction" method="deleteProduct">
+			<result name="productdelete">/pages/admin/adminProduct.jsp</result>
+		</action>
+		<!-- adminUser -->
+		<action name="changeuser_delete" class="testAction" method="jumpuserdelete">
+			<result name="changeuserdelete">/pages/admin/adminMember.jsp</result>
+		</action>
+		<action name="user_delete" class="testAction" method="deleteUser">
+			<result name="userdelete">/pages/admin/adminMember.jsp</result>
+		</action>
+		<!-- adminCategory --><!-- admin_product.action -->
+		<action name="admin_product" class="productAction" method="jumpadminProduct">
+			<result name="adminProduct">/pages/admin/adminProduct.jsp</result>
+		</action>
+		<!-- adminCategory --><!-- admin_member.action -->
+		<action name="admin_member" class="testAction" method="jumpadminMember">
+			<result name="adminMember">/pages/admin/adminMember.jsp</result>
+		</action>
+		<!-- adminCart --><!-- admin_cart.action -->
+		<action name="admin_cart" class="cartAction" method="jumpadminCart">
+			<result name="adminCart">/pages/admin/adminCart.jsp</result>
+		</action>
+		<!-- adminSubscribe --><!-- admin_subscribe.action -->
+		<action name="admin_subscribe" class="subscribeAction" method="jumpadminSubscribe">
+			<result name="adminSubscribe">/pages/admin/adminSubscribe.jsp</result>
+		</action>
+		<action name="detlete_subscribe" class="subscribeAction" method="deleteSubscribe">
+			<result name="detleteSubscribe">/pages/admin/adminSubscribe.jsp</result>
+		</action>		
+		<!-- shop_product.action -->
+		<action name="shop_product" class="testAction" method="jumpshopProduct">
+			<result name="shopProduct">/pages/shop/shopProduct.jsp</result>
+		</action>
+		<!-- shop_cart.action -->
+		<action name="shop_cart" class="cartAction" method="jumpshopCart">
+			<result name="shopCart">/pages/shop/shopCart.jsp</result>
+		</action>
+		<action name="save_cart" class="cartAction" method="saveCart">
+			<result name="Checkcart">/pages/shop/adminlogin.jsp</result>
+		</action>
+		<action name="change_cartedit" class="cartAction" method="jumpCartedit">
+			<result name="changecartedit">/pages/shop/adminedit.jsp</result>
+		</action>
+		<action name="cart_edit" class="cartAction" method="modifyCart">
+			<result name="cartedit">/pages/shop/adminlogin.jsp</result>
+		</action>
+		<action name="change_cartdelete" class="shopAction" method="jumpdCartelete">
+			<result name="changecartdelete">/pages/shop/shopCart.jsp</result>
+		</action>
+		<action name="cart_delete" class="shopAction" method="deleteCartItem">
+			<result name="cartdelete">/pages/shop/shopCart.jsp</result>
+		</action>
+		<action name="delete_cart" class="cartAction" method="deleteCart">
+			<result name="deletecart">/pages/admin/adminCart.jsp</result>
+		</action>
+		<!-- shop_pay.action -->
+		<action name="shop_pay" class="shopAction" method="jumpshopPay">
+			<result name="shopPay">/pages/shop/shopPay.jsp</result>
+		</action>
+		<action name="save_pay" class="shopAction" method="savePay">
+			<result name="success">/pages/shop/shopPayCheck.jsp</result>
+		</action>
+		<!-- shop_paycheck.action -->
+		<action name="shop_paycheck" class="shopAction" method="jumpshopPayCheck">
+			<result name="shopPayCheck">/pages/shop/shopPayCheck.jsp</result>
+		</action>
+		<action name="save_paycheck" class="shopAction" method="savePayCheck">
+			<result name="success">/pages/shop/shopPayOk.jsp</result>
+		</action>
+		<!-- shop_paycheck.action -->
+		<action name="shop_payok" class="shopAction" method="jumpshopPayOk">
+			<result name="shopPayOk">/pages/shop/shopPayOk.jsp</result>
+		</action>
+		<!-- user_product.action -->
+		<action name="user_product" class="testAction" method="jumpuserProduct">
+			<result name="userProduct">/pages/user/Product.jsp</result>
+		</action>
+		<!-- admin frame -->
+		<action name="admin_top" class="frameAction" method="top">
+			<result name="top">/pages/frame/top.jsp</result>
+		</action>
+		<action name="admin_menu" class="frameAction" method="menu">
+			<result name="menu">/pages/frame/menu.jsp</result>
+		</action>
+		<action name="admin_index" class="frameAction" method="index">
+			<result name="index">/pages/frame/index.jsp</result>
+		</action>
+		<!-- user frame -->
+		<action name="user_top" class="frameAction" method="usertop">
+			<result name="top">/pages/userframe/top.jsp</result>
+		</action>
+		<action name="user_menu" class="frameAction" method="usermenu">
+			<result name="menu">/pages/userframe/menu.jsp</result>
+		</action>
+		<action name="user_index" class="frameAction" method="userindex">
+			<result name="index">/pages/userframe/index.jsp</result>
+		</action>
+		<action name="user_bottom" class="frameAction" method="userbottom">
+			<result name="bottom">/pages/userframe/bottom.jsp</result>
+		</action>		
+	</package>
+		<!-- Set json result -->
+	<package name="json" extends="json-default">
+		<action name="jsonCart_*" class="jsonClothesCart" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="jsonMember_*" class="jsonClothesMember" method="{1}">
+			<result name="success" type="json"></result>
+		</action>
+	</package>	
+</struts>

@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:aop="http://www.springframework.org/schema/aop"
+    	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.1.xsd ">
+        
+        
+        
+        <bean name="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+		</bean>
+
+		<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+			<property name="sessionFactory">
+				<ref local="sessionFactory" />
+			</property>
+		</bean>
+
+
+<bean id="clothesCheckDao" class="com.clothes.dao.impl.ClothesCheckDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesCheckDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesCheckDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesCheckService" class="com.clothes.service.impl.ClothesCheckServiceImpl">
+        	<property name="clothesCheckDao">
+        		<ref local="clothesCheckDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesCheckServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesCheckService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+		
+		
+
+<bean id="clothesProductDao" class="com.clothes.dao.impl.ClothesProductDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesProductDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesProductDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesProductService" class="com.clothes.service.impl.ClothesProductServiceImpl">
+        	<property name="clothesProductDao">
+        		<ref local="clothesProductDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesProductServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesProductService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+
+
+<bean id="clothesUserDao" class="com.clothes.dao.impl.ClothesUserDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesUserDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesUserDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesUserService" class="com.clothes.service.impl.ClothesUserServiceImpl">
+        	<property name="clothesUserDao">
+        		<ref local="clothesUserDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesUserServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesUserService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+<!-- CartItem -->
+<bean id="clothesCartItemDao" class="com.clothes.dao.impl.ClothesCartItemDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesCartItemDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesCartItemDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesCartItemService" class="com.clothes.service.impl.ClothesCartItemServiceImpl">
+        	<property name="clothesCartItemDao">
+        		<ref local="clothesCartItemDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesCartItemServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesCartItemService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+<!-- Cart -->
+<bean id="clothesCartDao" class="com.clothes.dao.impl.ClothesCartDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesCartDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesCartDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesCartService" class="com.clothes.service.impl.ClothesCartServiceImpl">
+        	<property name="clothesCartDao">
+        		<ref local="clothesCartDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesCartServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesCartService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+<!-- Pay -->
+<bean id="clothesPayDao" class="com.clothes.dao.impl.ClothesPayDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesPayDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesPayDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesPayService" class="com.clothes.service.impl.ClothesPayServiceImpl">
+        	<property name="clothesPayDao">
+        		<ref local="clothesPayDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesPayServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesPayService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+<!-- Subscribe -->
+<bean id="clothesSubscribeDao" class="com.clothes.dao.impl.ClothesSubscribeDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesSubscribeDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesSubscribeDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesSubscribeService" class="com.clothes.service.impl.ClothesSubscribeServiceImpl">
+        	<property name="clothesSubscribeDao">
+        		<ref local="clothesSubscribeDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesSubscribeServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesSubscribeService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+<!-- SubscribeItem -->
+<bean id="clothesSubscribeItemDao" class="com.clothes.dao.impl.ClothesSubscribeItemDaoImpl">
+        	<property name="sessionFactory">
+        		<ref local="sessionFactory"/>
+        	</property>
+</bean>
+<bean id="clothesSubscribeItemDaoProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesSubscribeItemDao"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+					<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+				</props>
+        	</property>
+</bean>
+<bean id="clothesSubscribeItemService" class="com.clothes.service.impl.ClothesSubscribeItemServiceImpl">
+        	<property name="clothesSubscribeItemDao">
+        		<ref local="clothesSubscribeItemDaoProxy"/>
+        	</property>
+        </bean>
+<bean id="clothesSubscribeItemServiceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        	<property name="transactionManager">
+        		<ref bean="transactionManager"/>
+        	</property>
+        	<property name="target">
+        		<ref local="clothesSubscribeItemService"/>
+        	</property>
+        	<property name="transactionAttributes">
+        		<props>
+        			<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+        		</props>
+        	</property>
+</bean>
+<bean name="productAction" class="com.clothes.user.ProductAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+
+</bean>
+
+<bean name="testAction" class="com.clothes.user.TestAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean>
+
+<bean name="categoryAction" class="com.clothes.user.CategoryAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean>
+
+<bean name="cartAction" class="com.clothes.user.CartAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean>
+
+<bean name="payAction" class="com.clothes.user.PayAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean> 
+
+<bean name="shopAction" class="com.clothes.action.shop.ShopAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean> 
+<bean name="subscribeAction" class="com.clothes.user.SubscribeAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean> 
+<bean name="userAction" class="com.clothes.action.shop.UserAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean>
+<bean name="frameAction" class="com.clothes.user.FrameAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+</bean>  
+	<!-- Set Json Action method -->
+	<bean name="jsonClothesCart" class="com.clothes.action.json.JsonCartAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	<property name="clothesCheckService">
+		<ref bean = "clothesCheckServiceProxy"/>
+	</property>
+	<property name="clothesProductService">
+		<ref bean = "clothesProductServiceProxy"/>
+	</property>
+	<property name="clothesCartItemService">
+		<ref bean = "clothesCartItemServiceProxy"/>
+	</property>
+	<property name="clothesCartService">
+		<ref bean = "clothesCartServiceProxy"/>
+	</property>
+	<property name="clothesPayService">
+		<ref bean = "clothesPayServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeItemService">
+		<ref bean = "clothesSubscribeItemServiceProxy"/>
+	</property>
+	<property name="clothesSubscribeService">
+		<ref bean = "clothesSubscribeServiceProxy"/>
+	</property>
+	</bean>
+		<!-- Set Json Action method -->
+	<bean name="jsonClothesMember" class="com.clothes.action.json.JsonMemberAction">
+	<property name="clothesUserService">
+		<ref bean = "clothesUserServiceProxy"/>
+	</property>
+	</bean>
+
+  
+</beans>
